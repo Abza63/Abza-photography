@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abza Photography — Automotive Excellence</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #D0000D;
+    --red-dim: rgba(208,0,13,0.12);
+    --red-glow: rgba(208,0,13,0.25);
+    --black: #0a0a0a;
+    --dark: #111111;
+    --card: #161616;
+    --border: rgba(255,255,255,0.07);
+    --text: #ffffff;
+    --muted: rgba(255,255,255,0.45);
+    --silver: #888;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* ── CUSTOM CURSOR ── */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--red);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.25s, height 0.25s, opacity 0.25s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(208,0,13,0.6);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.18s ease, width 0.25s, height 0.25s, border-color 0.25s;
+  }
+  .cursor.hovered { width: 16px; height: 16px; }
+  .cursor-ring.hovered { width: 56px; height: 56px; border-color: var(--red); }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 0 60px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.4s;
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.15em;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-logo span { color: var(--red); }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 100%;
+    height: 1px;
+    background: var(--red);
+    transition: right 0.3s ease;
+  }
+  .nav-links a:hover { color: #fff; }
+  .nav-links a:hover::after { right: 0; }
+
+  .nav-cta {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--red);
+    border: 1px solid var(--red);
+    padding: 10px 24px;
+    text-decoration: none;
+    transition: background 0.25s, color 0.25s;
+  }
+  .nav-cta:hover { background: var(--red); color: #fff; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 80% 50%, rgba(208,0,13,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 80%, rgba(208,0,13,0.04) 0%, transparent 40%),
+      #0a0a0a;
+  }
+
+  /* Animated grid lines */
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+    animation: gridPulse 8s ease-in-out infinite;
+  }
+  @keyframes gridPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  /* Big decorative number */
+  .hero-number {
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 420px;
+    color: rgba(255,255,255,0.02);
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+    letter-spacing: -0.05em;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 60px;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 80px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--red);
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(80px, 11vw, 160px);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    margin-bottom: 32px;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+  .hero-title .red { color: var(--red); }
+  .hero-title .outline {
+    -webkit-text-stroke: 1.5px rgba(255,255,255,0.2);
+    color: transparent;
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.8;
+    margin-bottom: 48px;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    background: var(--red);
+    color: #fff;
+    padding: 16px 36px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+  }
+  .btn-primary:hover::before { transform: translateX(0); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(208,0,13,0.4); }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: #fff; }
+  .btn-ghost svg { transition: transform 0.2s; }
+  .btn-ghost:hover svg { transform: translateX(4px); }
+
+  /* Stats bar */
+  .hero-stats {
+    position: absolute;
+    bottom: 40px;
+    left: 60px;
+    right: 60px;
+    display: flex;
+    gap: 48px;
+    animation: fadeUp 0.8s 0.6s ease both;
+    border-top: 1px solid var(--border);
+    padding-top: 32px;
+  }
+  .stat-item { }
+  .stat-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: 0.05em;
+  }
+  .stat-number span { color: var(--red); font-size: 28px; }
+  .stat-label {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 120px 60px; }
+  .section-max { max-width: 1200px; margin: 0 auto; }
+
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .section-label::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--red);
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 6vw, 80px);
+    letter-spacing: 0.03em;
+    line-height: 0.95;
+    margin-bottom: 20px;
+  }
+  .section-title .accent { color: var(--red); }
+
+  /* ── SERVICES ── */
+  #services { background: var(--dark); }
+
+  .services-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 80px;
+  }
+
+  .services-desc {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-top: 24px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .service-card {
+    background: var(--card);
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+    border: 1px solid var(--border);
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 100%;
+    height: 2px;
+    background: var(--red);
+    transition: right 0.4s ease;
+  }
+  .service-card:hover::before { right: 0; }
+  .service-card:hover { transform: translateY(-4px); }
+
+  .service-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    color: rgba(255,255,255,0.04);
+    line-height: 1;
+    position: absolute;
+    top: 20px; right: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  .service-icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .service-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+
+  .service-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .service-price {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--red);
+    text-transform: uppercase;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    margin-top: auto;
+  }
+
+  /* ── PORTFOLIO ── */
+  #portfolio { background: var(--black); }
+
+  .portfolio-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 48px;
+  }
+
+  /* Filter tabs */
+  .portfolio-filters {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 32px;
+  }
+  .filter-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 9px 20px;
+    background: transparent;
+    border: 1px solid transparent;
+    cursor: none;
+    transition: all 0.2s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    color: #fff;
+    border-color: var(--red);
+  }
+  .filter-btn.active { background: var(--red-dim); }
+
+  /* Masonry-style portfolio grid */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(3, 220px);
+    gap: 4px;
+  }
+
+  .portfolio-item {
+    position: relative;
+    overflow: hidden;
+    background: var(--card);
+    cursor: none;
+  }
+  .portfolio-item:nth-child(1) { grid-column: 1/6; grid-row: 1/3; }
+  .portfolio-item:nth-child(2) { grid-column: 6/9; grid-row: 1/2; }
+  .portfolio-item:nth-child(3) { grid-column: 9/13; grid-row: 1/2; }
+  .portfolio-item:nth-child(4) { grid-column: 6/10; grid-row: 2/4; }
+  .portfolio-item:nth-child(5) { grid-column: 10/13; grid-row: 2/3; }
+  .portfolio-item:nth-child(6) { grid-column: 1/6; grid-row: 3/4; }
+  .portfolio-item:nth-child(7) { grid-column: 10/13; grid-row: 3/4; }
+
+  .portfolio-img-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: transform 0.5s ease;
+  }
+
+  /* Car silhouette placeholders */
+  .car-silhouette {
+    font-size: 48px;
+    filter: brightness(0.3);
+    transition: filter 0.3s;
+  }
+  .portfolio-item:hover .car-silhouette { filter: brightness(0.5); }
+
+  .portfolio-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 60%);
+    opacity: 0;
+    transition: opacity 0.35s;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 28px;
+  }
+  .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+  .portfolio-item:hover .portfolio-img-placeholder { transform: scale(1.05); }
+
+  .overlay-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 6px;
+    transform: translateY(10px);
+    transition: transform 0.3s;
+  }
+  .overlay-sub {
+    font-size: 12px;
+    color: var(--red);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transform: translateY(10px);
+    transition: transform 0.3s 0.05s;
+  }
+  .portfolio-item:hover .overlay-title,
+  .portfolio-item:hover .overlay-sub { transform: translateY(0); }
+
+  /* Portfolio colours by category */
+  .cat-sedan { background: linear-gradient(135deg, #161616 0%, #1e1410 100%); }
+  .cat-suv { background: linear-gradient(135deg, #161616 0%, #0f1520 100%); }
+  .cat-sports { background: linear-gradient(135deg, #1a0505 0%, #0f0a0a 100%); }
+  .cat-lifestyle { background: linear-gradient(135deg, #161616 0%, #151510 100%); }
+
+  /* Note banner */
+  .portfolio-note {
+    margin-top: 24px;
+    padding: 20px 28px;
+    border: 1px dashed rgba(208,0,13,0.3);
+    background: rgba(208,0,13,0.04);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .portfolio-note span {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .portfolio-note span strong { color: var(--red); font-weight: 500; }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--dark);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+
+  .about-photo-area {
+    position: relative;
+  }
+
+  .photo-frame {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--card);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .photo-frame::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--red), transparent);
+  }
+  .photo-frame-icon { font-size: 64px; opacity: 0.15; }
+  .photo-frame-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .about-badge {
+    position: absolute;
+    bottom: -20px; right: -20px;
+    width: 120px; height: 120px;
+    background: var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  .about-badge-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: #fff;
+    line-height: 1;
+  }
+  .about-badge-label {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-top: 4px;
+  }
+
+  .about-content {}
+  .about-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    margin-top: 16px;
+    margin-bottom: 8px;
+  }
+  .about-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 32px;
+  }
+  .about-bio {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 28px;
+  }
+
+  .about-skills {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+  .skill-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+  .skill-dot {
+    width: 6px; height: 6px;
+    background: var(--red);
+    flex-shrink: 0;
+  }
+
+  .about-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+  }
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .contact-row svg { color: var(--red); flex-shrink: 0; }
+
+  /* ── BOOKING / CONTACT ── */
+  #booking { background: var(--black); }
+
+  .booking-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .booking-info {}
+  .booking-desc {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-top: 20px;
+    margin-bottom: 40px;
+  }
+
+  .packages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .package-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    transition: border-color 0.2s;
+  }
+  .package-row:hover { border-color: rgba(208,0,13,0.4); }
+  .pkg-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .pkg-price {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--red);
+    letter-spacing: 0.08em;
+  }
+
+  /* Form */
+  .booking-form {
+    background: var(--card);
+    padding: 48px 40px;
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--red);
+  }
+
+  .form-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 0.1em;
+    margin-bottom: 32px;
+    color: #fff;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .form-group.full { grid-column: 1/-1; }
+
+  .form-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .form-input, .form-select, .form-textarea {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    color: #fff;
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 13px 16px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    width: 100%;
+    cursor: none;
+  }
+  .form-select { appearance: none; -webkit-appearance: none; }
+  .form-textarea { resize: vertical; min-height: 100px; }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: rgba(208,0,13,0.6);
+    background: rgba(208,0,13,0.04);
+  }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.2); }
+  .form-select option { background: #1a1a1a; }
+
+  .form-submit {
+    width: 100%;
+    padding: 18px;
+    background: var(--red);
+    color: #fff;
+    border: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+    margin-top: 8px;
+  }
+  .form-submit:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 32px rgba(208,0,13,0.4);
+  }
+
+  /* Success message */
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .form-success.visible { display: block; }
+  .success-icon { font-size: 48px; margin-bottom: 16px; }
+  .success-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.1em;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .success-msg { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials { background: var(--dark); overflow: hidden; }
+
+  .testimonials-track-wrapper {
+    overflow: hidden;
+    margin-top: 56px;
+    padding-bottom: 8px;
+  }
+  .testimonials-track {
+    display: flex;
+    gap: 24px;
+    animation: scrollLeft 30s linear infinite;
+    width: max-content;
+  }
+  .testimonials-track:hover { animation-play-state: paused; }
+
+  @keyframes scrollLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .testimonial-card {
+    width: 340px;
+    flex-shrink: 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 36px 32px;
+    position: relative;
+  }
+
+  .testimonial-stars {
+    color: var(--red);
+    font-size: 16px;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+  }
+
+  .testimonial-text {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.8;
+    font-style: italic;
+    margin-bottom: 24px;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+  }
+  .author-avatar {
+    width: 38px; height: 38px;
+    background: var(--red-dim);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: var(--red);
+    flex-shrink: 0;
+  }
+  .author-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .author-role {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #050505;
+    padding: 80px 60px 40px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+  }
+
+  .footer-brand .brand-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    letter-spacing: 0.12em;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .footer-brand .brand-name span { color: var(--red); }
+  .footer-brand .brand-tagline {
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .footer-brand p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.3);
+    line-height: 1.8;
+    max-width: 260px;
+  }
+
+  .footer-col-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 20px;
+  }
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .footer-links a {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+    letter-spacing: 0.04em;
+  }
+  .footer-links a:hover { color: #fff; }
+
+  .footer-social {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .social-link {
+    width: 36px; height: 36px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 14px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .social-link:hover { border-color: var(--red); background: var(--red-dim); }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--border);
+    padding-top: 32px;
+  }
+  .footer-copy {
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.1em;
+  }
+  .footer-insta {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── MOBILE HAMBURGER (simple) ── */
+  .nav-toggle { display: none; }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    section { padding: 80px 24px; }
+    .hero-content { padding: 80px 24px 0; }
+    .hero-stats { left: 24px; right: 24px; flex-wrap: wrap; gap: 24px; }
+    .hero-number { font-size: 220px; right: -10px; }
+    .services-intro { grid-template-columns: 1fr; gap: 24px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .portfolio-item { grid-column: auto !important; grid-row: auto !important; height: 200px; }
+    .about-layout { grid-template-columns: 1fr; gap: 40px; }
+    .booking-layout { grid-template-columns: 1fr; gap: 40px; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ── NAV ── -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">
+    ABZA<span>.</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+  </ul>
+  <a href="#booking" class="nav-cta">Book a Shoot</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-number">A</div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Automotive Photography · Botswana</div>
+    <h1 class="hero-title">
+      YOUR CAR.<br>
+      <span class="red">CAPTURED</span><br>
+      <span class="outline">PERFECTLY.</span>
+    </h1>
+    <p class="hero-sub">
+      Premium automotive photography for dealerships, private sellers, and lifestyle brands across Botswana.
+      Every angle. Every detail. Every story.
+    </p>
+    <div class="hero-buttons">
+      <a href="#booking" class="btn-primary">
+        Book a Session
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#portfolio" class="btn-ghost">
+        View Portfolio
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number">200<span>+</span></div>
+        <div class="stat-label">Vehicles Photographed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">50<span>+</span></div>
+        <div class="stat-label">Happy Clients</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">3<span>+</span></div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">24<span>h</span></div>
+        <div class="stat-label">Express Delivery</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section id="services">
+  <div class="section-max">
+    <div class="services-intro">
+      <div>
+        <div class="section-label reveal">What We Offer</div>
+        <h2 class="section-title reveal">WORLD-CLASS<br><span class="accent">PACKAGES</span></h2>
+      </div>
+      <p class="services-desc reveal">
+        From single-car private listings to full dealership fleet shoots — we deliver studio-quality results in the field. Tailored packages built around your needs and budget.
+      </p>
+    </div>
+
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <span class="service-num">01</span>
+        <span class="service-icon">🏢</span>
+        <div class="service-name">Dealership Packages</div>
+        <div class="service-desc">Full fleet shoots for car dealerships. Consistent, high-conversion imagery for your showroom and online listings.</div>
+        <div class="service-price">From BWP 1,200 · 5 vehicles</div>
+      </div>
+      <div class="service-card">
+        <span class="service-num">02</span>
+        <span class="service-icon">🚘</span>
+        <div class="service-name">Private Sellers</div>
+        <div class="service-desc">Sell faster with professional photos that make buyers stop scrolling. Stand out on Facebook Marketplace and AutoTrader.</div>
+        <div class="service-price">From BWP 350 · per vehicle</div>
+      </div>
+      <div class="service-card">
+        <span class="service-num">03</span>
+        <span class="service-icon">🎬</span>
+        <div class="service-name">Lifestyle & Brand</div>
+        <div class="service-desc">Editorial-style shoots for automotive brands, social media campaigns, and advertising. Cars as art.</div>
+        <div class="service-price">From BWP 1,500 · half day</div>
+      </div>
+      <div class="service-card">
+        <span class="service-num">04</span>
+        <span class="service-icon">📱</span>
+        <div class="service-name">Social Media Pack</div>
+        <div class="service-desc">Content-ready images formatted for Instagram, Facebook & WhatsApp Status. Optimised for engagement.</div>
+        <div class="service-price">BWP 1,200 · per pack</div>
+      </div>
+      <div class="service-card">
+        <span class="service-num">05</span>
+        <span class="service-icon">🎥</span>
+        <div class="service-name">Promo Video</div>
+        <div class="service-desc">Short-form promotional video clips for social media. Perfect for dealership reels and vehicle showcase posts.</div>
+        <div class="service-price">BWP 500 · add-on</div>
+      </div>
+      <div class="service-card">
+        <span class="service-num">06</span>
+        <span class="service-icon">⚡</span>
+        <div class="service-name">Express Delivery</div>
+        <div class="service-desc">Need it fast? Get your edited, delivery-ready images within 24 hours of your shoot. Priority processing.</div>
+        <div class="service-price">+BWP 200 · any package</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PORTFOLIO ── -->
+<section id="portfolio">
+  <div class="section-max">
+    <div class="portfolio-header">
+      <div>
+        <div class="section-label reveal">Our Work</div>
+        <h2 class="section-title reveal">THE <span class="accent">PORTFOLIO</span></h2>
+      </div>
+    </div>
+
+    <div class="portfolio-filters reveal">
+      <button class="filter-btn active" onclick="filterPortfolio('all', this)">All</button>
+      <button class="filter-btn" onclick="filterPortfolio('dealership', this)">Dealership</button>
+      <button class="filter-btn" onclick="filterPortfolio('private', this)">Private Sellers</button>
+      <button class="filter-btn" onclick="filterPortfolio('lifestyle', this)">Lifestyle</button>
+    </div>
+
+    <div class="portfolio-grid reveal" id="portfolioGrid">
+      <div class="portfolio-item cat-sedan" data-cat="dealership">
+        <div class="portfolio-img-placeholder">
+          <div class="car-silhouette">🚗</div>
+        </div>
+        <div class="portfolio-overlay">
+          <div class="overlay-title">Toyota Corolla</div>
+          <div class="overlay-sub">Dealership · Gaborone CBD</div>
+        </div>
+      </div>
+      <div class="portfolio-item cat-suv" data-cat="lifestyle">
+        <div class="portfolio-img-placeholder">
+          <div class="car-silhouette">🚙</div>
+        </div>
+        <div class="portfolio-overlay">
+          <div class="overlay-title">Land Cruiser</div>
+          <div class="overlay-sub">Lifestyle · Mokolodi</div>
+        </div>
+      </div>
+      <div class="portfolio-item cat-sports" data-cat="private">
+        <div class="portfolio-img-placeholder">
+          <div class="car-silhouette">🏎️</div>
+        </div>
+        <div class="portfolio-overlay">
+          <div class="overlay-title">Private Listing</div>
+          <div class="overlay-sub">Private Seller · Phakalane</div>
+        </div>
+      </div>
+      <div class="portfolio-item cat-lifestyle" data-cat="lifestyle">
+        <div class="portfolio-img-placeholder">
+          <div class="car-silhouette">🚐</div>
+        </div>
+        <div class="portfolio-overlay">
+          <div class="overlay-title">Brand Shoot</div>
+          <div class="overlay-sub">Lifestyle · Broadhurst</div>
+        </div>
+      </div>
+      <div class="portfolio-item cat-sedan" data-cat="dealership">
+        <div class="portfolio-img-placeholder">
+          <div class="car-silhouette">🚗</div>
+        </div>
+        <div class="portfolio-overlay">
+          <div class="overlay-title">Fleet Shoot</div>
+          <div class="overlay-sub">Dealership · Extension 2</div>
+        </div>
+      </div>
+      <div class="portfolio-item cat-suv" data-cat="private">
+        <div class="portfolio-img-placeholder">
+          <div class="car-silhouette">🚙</div>
+        </div>
+        <div class="portfolio-overlay">
+          <div class="overlay-title">BMW X5</div>
+          <div class="overlay-sub">Private Seller · Gaborone</div>
+        </div>
+      </div>
+      <div class="portfolio-item cat-sports" data-cat="dealership">
+        <div class="portfolio-img-placeholder">
+          <div class="car-silhouette">🚓</div>
+        </div>
+        <div class="portfolio-overlay">
+          <div class="overlay-title">Showroom Shoot</div>
+          <div class="overlay-sub">Dealership · Tlokweng</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-note reveal">
+      <span>💡</span>
+      <span><strong>Add your own images:</strong> Replace the placeholder cars in the code with your actual photography to showcase your real portfolio. Each card can hold a photo with a simple <code>background-image</code> CSS property.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="section-max">
+    <div class="about-layout">
+      <div class="about-photo-area reveal">
+        <div class="photo-frame">
+          <div class="photo-frame-icon">📷</div>
+          <div class="photo-frame-text">Your Photo Here</div>
+        </div>
+        <div class="about-badge">
+          <div class="about-badge-num">3+</div>
+          <div class="about-badge-label">Years of Excellence</div>
+        </div>
+      </div>
+      <div class="about-content reveal">
+        <div class="section-label">The Photographer</div>
+        <h2 class="about-name">Aobakwe<br>Basupi</h2>
+        <div class="about-title">Founder & Lead Automotive Photographer</div>
+        <p class="about-bio">
+          Based in Gaborone, Botswana, I founded Abza Photography with one mission — to give every vehicle the premium visual treatment it deserves. Whether you're a dealership looking to move stock faster or a private seller wanting to stand out, I bring technical precision and creative vision to every shoot.
+        </p>
+        <p class="about-bio">
+          I specialise in automotive photography, understanding light, angles, and post-processing techniques that make cars look irresistible — not just photographed.
+        </p>
+        <div class="about-skills">
+          <div class="skill-item"><div class="skill-dot"></div>Studio & Outdoor Lighting</div>
+          <div class="skill-item"><div class="skill-dot"></div>Professional Retouching</div>
+          <div class="skill-item"><div class="skill-dot"></div>Dealership Fleet Shoots</div>
+          <div class="skill-item"><div class="skill-dot"></div>Fast 24h Turnaround</div>
+          <div class="skill-item"><div class="skill-dot"></div>Social Media Formats</div>
+          <div class="skill-item"><div class="skill-dot"></div>Video Promo Clips</div>
+        </div>
+        <div class="about-contact">
+          <div class="contact-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.63a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            +267 72 557 523
+          </div>
+          <div class="contact-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            aobakwebsupi@gmail.com
+          </div>
+          <div class="contact-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+            @abzaphotography · Gaborone, Botswana
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BOOKING ── -->
+<section id="booking">
+  <div class="section-max">
+    <div class="booking-layout">
+      <div class="booking-info">
+        <div class="section-label reveal">Get in Touch</div>
+        <h2 class="section-title reveal">BOOK YOUR<br><span class="accent">SHOOT</span></h2>
+        <p class="booking-desc reveal">
+          Ready to make your vehicle look incredible? Fill in the form and I'll get back to you within a few hours. You can also WhatsApp directly on <strong style="color:#fff">+267 72 557 523</strong>.
+        </p>
+
+        <div class="packages-list reveal">
+          <div class="package-row">
+            <div class="pkg-name">Starter — 5 Vehicles</div>
+            <div class="pkg-price">BWP 1,200</div>
+          </div>
+          <div class="package-row">
+            <div class="pkg-name">Standard — 10 Vehicles</div>
+            <div class="pkg-price">BWP 2,200</div>
+          </div>
+          <div class="package-row">
+            <div class="pkg-name">Full Fleet — 20 Vehicles</div>
+            <div class="pkg-price">BWP 3,800</div>
+          </div>
+          <div class="package-row">
+            <div class="pkg-name">Monthly Retainer</div>
+            <div class="pkg-price">BWP 2,500 / mo</div>
+          </div>
+          <div class="package-row">
+            <div class="pkg-name">Private Seller — Full</div>
+            <div class="pkg-price">BWP 550</div>
+          </div>
+          <div class="package-row">
+            <div class="pkg-name">Lifestyle / Brand</div>
+            <div class="pkg-price">From BWP 1,500</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Booking Form -->
+      <div class="booking-form reveal">
+        <div class="form-title">REQUEST A BOOKING</div>
+
+        <div id="bookingFormWrap">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">First Name</label>
+              <input class="form-input" type="text" placeholder="e.g. Thabo">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last Name</label>
+              <input class="form-input" type="text" placeholder="e.g. Kgosi">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Phone / WhatsApp</label>
+              <input class="form-input" type="tel" placeholder="+267 7X XXX XXX">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email (optional)</label>
+              <input class="form-input" type="email" placeholder="you@email.com">
+            </div>
+          </div>
+          <div class="form-group full" style="grid-column:1/-1">
+            <label class="form-label">Package / Service</label>
+            <select class="form-select">
+              <option value="">— Select a package —</option>
+              <option>Dealership — Starter (5 vehicles) · BWP 1,200</option>
+              <option>Dealership — Standard (10 vehicles) · BWP 2,200</option>
+              <option>Dealership — Full Fleet (20 vehicles) · BWP 3,800</option>
+              <option>Dealership — Monthly Retainer · BWP 2,500/mo</option>
+              <option>Private Seller — Basic · BWP 350</option>
+              <option>Private Seller — Full · BWP 550</option>
+              <option>Private Seller — Premium · BWP 850</option>
+              <option>Lifestyle / Brand — Half Day · BWP 1,500</option>
+              <option>Lifestyle / Brand — Full Day · BWP 2,500</option>
+              <option>Social Media Pack · BWP 1,200</option>
+              <option>Not sure — let's chat</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Preferred Date</label>
+              <input class="form-input" type="date">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Location</label>
+              <input class="form-input" type="text" placeholder="e.g. Gaborone CBD">
+            </div>
+          </div>
+          <div class="form-group" style="grid-column:1/-1">
+            <label class="form-label">Additional Notes</label>
+            <textarea class="form-textarea" placeholder="Tell me about your vehicle(s), specific shots you want, or any questions..."></textarea>
+          </div>
+          <button class="form-submit" onclick="submitForm()">Send Booking Request →</button>
+        </div>
+
+        <div class="form-success" id="formSuccess">
+          <div class="success-icon">✅</div>
+          <div class="success-title">REQUEST SENT!</div>
+          <p class="success-msg">Thank you! Aobakwe will get back to you within a few hours.<br>You can also WhatsApp directly: <strong style="color:var(--red)">+267 72 557 523</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ── -->
+<section id="testimonials">
+  <div class="section-max">
+    <div class="section-label reveal">What Clients Say</div>
+    <h2 class="section-title reveal">CLIENT <span class="accent">REVIEWS</span></h2>
+  </div>
+
+  <div class="testimonials-track-wrapper" style="margin-top:56px">
+    <div class="testimonials-track" id="testimonialsTrack">
+      <!-- Set 1 -->
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Aobakwe transformed how our dealership looks online. Sales enquiries went up within the first week of updating our listings with his photos."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">TK</div>
+          <div>
+            <div class="author-name">Thabo Kgosi</div>
+            <div class="author-role">Dealership Manager · Gaborone</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Sold my BMW within 3 days of posting the photos he took. Before that it had been listed for a month with no serious interest. Highly recommend!"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">LM</div>
+          <div>
+            <div class="author-name">Lesego Modise</div>
+            <div class="author-role">Private Seller · Phakalane</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Professional, punctual, and the results were beyond what I expected. The lifestyle shoot we did for our brand has been our best performing content ever."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">BP</div>
+          <div>
+            <div class="author-name">Boitumelo Phiri</div>
+            <div class="author-role">Brand Manager · Botswana</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Fast delivery, great editing, and he really knows how to make a car look amazing. Will definitely use Abza Photography again for all our listings."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">SM</div>
+          <div>
+            <div class="author-name">Sethibe Molefe</div>
+            <div class="author-role">Used Car Dealer · Extension 2</div>
+          </div>
+        </div>
+      </div>
+      <!-- Duplicated for seamless scroll -->
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Aobakwe transformed how our dealership looks online. Sales enquiries went up within the first week of updating our listings with his photos."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">TK</div>
+          <div>
+            <div class="author-name">Thabo Kgosi</div>
+            <div class="author-role">Dealership Manager · Gaborone</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Sold my BMW within 3 days of posting the photos he took. Before that it had been listed for a month with no serious interest. Highly recommend!"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">LM</div>
+          <div>
+            <div class="author-name">Lesego Modise</div>
+            <div class="author-role">Private Seller · Phakalane</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Professional, punctual, and the results were beyond what I expected. The lifestyle shoot we did for our brand has been our best performing content ever."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">BP</div>
+          <div>
+            <div class="author-name">Boitumelo Phiri</div>
+            <div class="author-role">Brand Manager · Botswana</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Fast delivery, great editing, and he really knows how to make a car look amazing. Will definitely use Abza Photography again for all our listings."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">SM</div>
+          <div>
+            <div class="author-name">Sethibe Molefe</div>
+            <div class="author-role">Used Car Dealer · Extension 2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="brand-name">ABZA<span>.</span></div>
+      <div class="brand-tagline">Automotive Photography</div>
+      <p>Premium automotive photography for dealerships, private sellers, and lifestyle brands across Botswana. Every vehicle deserves to be seen at its best.</p>
+      <div class="footer-social">
+        <a class="social-link" href="https://instagram.com/abzaphotography" target="_blank" title="Instagram">📷</a>
+        <a class="social-link" href="https://wa.me/26772557523" target="_blank" title="WhatsApp">💬</a>
+        <a class="social-link" href="https://facebook.com" target="_blank" title="Facebook">📘</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigation</div>
+      <ul class="footer-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#booking">Book a Shoot</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="#booking">Dealership Packages</a></li>
+        <li><a href="#booking">Private Sellers</a></li>
+        <li><a href="#booking">Lifestyle & Brand</a></li>
+        <li><a href="#booking">Social Media Pack</a></li>
+        <li><a href="#booking">Express 24h Delivery</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="tel:+26772557523">+267 72 557 523</a></li>
+        <li><a href="mailto:aobakwebsupi@gmail.com">aobakwebsupi@gmail.com</a></li>
+        <li><a href="#">@abzaphotography</a></li>
+        <li><a href="#">Gaborone, Botswana</a></li>
+        <li><a href="https://wa.me/26772557523" target="_blank">WhatsApp Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Abza Photography · Aobakwe Basupi. All rights reserved.</div>
+    <a href="https://instagram.com/abzaphotography" class="footer-insta" target="_blank">@abzaphotography</a>
+  </div>
+</footer>
+
+<script>
+  // ── Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+    ring.style.left = mx + 'px';
+    ring.style.top = my + 'px';
+  });
+
+  document.querySelectorAll('a, button, .service-card, .portfolio-item, .filter-btn, .package-row').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.classList.add('hovered'); ring.classList.add('hovered'); });
+    el.addEventListener('mouseleave', () => { cursor.classList.remove('hovered'); ring.classList.remove('hovered'); });
+  });
+
+  // ── Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => observer.observe(r));
+
+  // ── Portfolio filter
+  function filterPortfolio(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.portfolio-item').forEach(item => {
+      if (cat === 'all' || item.dataset.cat === cat) {
+        item.style.opacity = '1';
+        item.style.transform = 'scale(1)';
+      } else {
+        item.style.opacity = '0.2';
+        item.style.transform = 'scale(0.97)';
+      }
+      item.style.transition = 'opacity 0.35s, transform 0.35s';
+    });
+  }
+
+  // ── Booking form submit (simulated)
+  function submitForm() {
+    const inputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
+    let hasName = false;
+    inputs.forEach(i => { if (i.value.trim()) hasName = true; });
+
+    if (!hasName) {
+      alert('Please fill in at least your name and phone number.');
+      return;
+    }
+
+    document.getElementById('bookingFormWrap').style.display = 'none';
+    document.getElementById('formSuccess').classList.add('visible');
+  }
+
+  // ── Nav bg on scroll
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      nav.style.background = 'rgba(10,10,10,0.98)';
+      nav.style.borderBottomColor = 'rgba(255,255,255,0.08)';
+    } else {
+      nav.style.background = '';
+      nav.style.borderBottomColor = '';
+    }
+  });
+</script>
+
+</body>
+</html>
